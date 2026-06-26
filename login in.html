@@ -185,7 +185,7 @@
                 localStorage.setItem('userDisplayName', matchedAccount.displayName);
                 console.log('已登录账号:', matchedAccount.username, '学科:', matchedAccount.subject);
                 alert('登录成功！当前账号：' + matchedAccount.displayName + '。');
-                window.location.href = 'index.html';
+                window.location.href = './index.html';
             } else {
                 alert('登录失败：账号或密码不正确，请使用预设账号登录。');
             }
