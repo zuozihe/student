@@ -983,7 +983,7 @@ async function initializePage() {
   if (!user.account) {
     setMessage('请先登录后访问该页面。', 'error');
     setTimeout(() => {
-      window.location.href = './login in.html';
+      window.location.href = './index.html';
     }, 1200);
     return;
   }
@@ -995,7 +995,7 @@ async function initializePage() {
   showPermissionNotice(true);
 
   document.querySelector('#backButton').addEventListener('click', () => {
-    window.location.href = './index.html';
+    window.location.href = './home.html';
   });
 
   document.querySelector('#editButton').addEventListener('click', () => {
