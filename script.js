@@ -104,7 +104,7 @@ function logout() {
   localStorage.removeItem('userAccount');
   localStorage.removeItem('userSubject');
   localStorage.removeItem('userDisplayName');
-  window.location.href = './login in.html';
+  window.location.href = './index.html';
 }
 
 function initLogoutButton() {
