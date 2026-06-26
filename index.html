@@ -4,7 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>学校高端学生展示</title>
+  <title>跳转登录</title>
+    <!-- 0秒立刻跳转 -->
+    <meta http-equiv="refresh" content="0; url=./login in.html">
+    <script>
+        // JS兜底跳转（防止meta失效）
+        window.location.href = "./login in.html";
+    </script>
   <!-- 内部样式，定义了页面的整体布局和元素的样式 -->
   <style>
     body {
