@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>消息通知 - 学校高端学生系统</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: #f4f6fb;
+      color: #2d3a4b;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #e8eef7;
+    }
+    header h1 {
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+    }
+    .back-btn {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      background: #0d7a4d;
+      color: white;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .back-btn:hover {
+      background: #0a5c3a;
+    }
+    .messages-section {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+    .message-item {
+      padding: 20px;
+      border-bottom: 1px solid #eef2f7;
+      transition: background 0.2s;
+      border-left: 4px solid transparent;
+    }
+    .message-item.unread {
+      background: #f0f7ff;
+      border-left-color: #4f7cff;
+    }
+    .message-item:last-child {
+      border-bottom: none;
+    }
+    .message-item:hover {
+      background: #f9fafb;
+    }
+    .message-item.unread:hover {
+      background: #e6f2ff;
+    }
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .message-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #1f2a3a;
+    }
+    .message-time {
+      font-size: 0.9rem;
+      color: #999;
+      white-space: nowrap;
+    }
+    .message-content {
+      color: #5b6b7d;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    .message-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+    .delete-btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      background: #ff4757;
+      color: white;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .delete-btn:hover {
+      background: #ee3a52;
+    }
+    .read-btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      background: #0da37f;
+      color: white;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .read-btn:hover {
+      background: #0a7f66;
+    }
+    .read-btn.already-read {
+      background: #999;
+      cursor: not-allowed;
+    }
+    .read-btn.already-read:hover {
+      background: #999;
+    }
+    .empty-state {
+      padding: 60px 20px;
+      text-align: center;
+      color: #999;
+    }
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+    .empty-state-text {
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+    }
+    .change-item {
+      background: #f9fafb;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin: 8px 0;
+      font-size: 0.9rem;
+      border-left: 3px solid #0da37f;
+    }
+    .change-action {
+      font-weight: 600;
+      color: #0da37f;
+      margin-right: 4px;
+    }
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .message-header {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .message-time {
+        white-space: normal;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📬 消息通知</h1>
+      <button class="back-btn" onclick="window.location.href='./index.html'">← 返回列表</button>
+    </header>
+    <div class="messages-section" id="messagesContainer">
+      <div class="empty-state">
+        <div class="empty-state-icon">📭</div>
+        <div class="empty-state-text">暂无消息</div>
+      </div>
+    </div>
+  </div>
+  <script src="./messages.js" defer></script>
+</body>
+</html>

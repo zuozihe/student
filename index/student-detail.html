@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学生详细信息</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .conversation-section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      padding: 18px 20px;
+      margin-top: 24px;
+      border-top: 2px solid #cbd5e1;
+    }
+    .conversation-section h2 {
+      margin-top: 0;
+      margin-bottom: 14px;
+      font-size: 1.2rem;
+      color: #1f2a3a;
+    }
+    .conversation-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+    .conversation-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 12px;
+    }
+    .conversation-table th,
+    .conversation-table td {
+      padding: 10px 12px;
+      border: 1px solid #e8edf3;
+      vertical-align: top;
+    }
+    .conversation-table textarea,
+    .conversation-table input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccd6e3;
+      border-radius: 6px;
+      font-size: 0.94rem;
+      resize: vertical;
+      min-height: 38px;
+      box-sizing: border-box;
+    }
+    .conversation-table button {
+      border: 1px solid #ccd6e3;
+      background: #fff;
+      color: #2d3a4b;
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+    .conversation-table button:hover {
+      background: #f4f6fb;
+    }
+    .history-section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      padding: 18px 20px;
+      margin-top: 20px;
+    }
+    .history-section h2 {
+      margin-top: 0;
+      margin-bottom: 14px;
+      font-size: 1.2rem;
+      color: #1f2a3a;
+    }
+    .history-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .history-entry {
+      border: 1px solid #e8edf3;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      background: #fafbff;
+    }
+    .history-entry summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: #2d3a4b;
+    }
+    .history-entry p {
+      margin: 8px 0 0;
+      color: #4b586a;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+    .radar-section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      padding: 18px 20px;
+      margin-top: 24px;
+    }
+    .radar-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .radar-chart-wrapper {
+      flex: 1 1 320px;
+      min-width: 280px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .radar-controls {
+      flex: 1 1 280px;
+      min-width: 260px;
+    }
+    .radar-control-row {
+      margin-bottom: 14px;
+    }
+    .radar-control-row label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #1f2a3a;
+    }
+    .radar-control-row input[type=range] {
+      width: 100%;
+    }
+    .radar-score-value {
+      min-width: 38px;
+      text-align: right;
+      color: #1d4ed8;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>学生详细信息</h1>
+      <p>查看学生资料并在教师身份下编辑学生信息。</p>
+    </header>
+
+    <div class="student-detail-page">
+      <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px; margin-bottom:18px;">
+        <p style="margin:0; color:#5b6b7d; font-size:0.95rem;">当前账号：<strong id="currentAccount"></strong></p>
+        <p style="margin:0; color:#5b6b7d; font-size:0.95rem;">学科权限：<strong id="currentSubject"></strong></p>
+      </div>
+      <div class="form-actions">
+        <button id="backButton" class="btn-secondary" type="button">返回学生列表</button>
+        <button id="editButton" class="btn-primary" type="button">编辑信息</button>
+        <button id="saveButton" class="btn-primary" type="button" hidden>保存修改</button>
+        <button id="cancelButton" class="btn-secondary" type="button" hidden>取消</button>
+      </div>
+
+      <div id="permissionNotice" class="message permission-notice" hidden>
+        当前账号无权限查看该学生信息。如需查看，请使用对应学科账号或管理员账号登录。
+      </div>
+
+      <div class="detail-row">
+        <p><strong>姓名：</strong><span id="detailName"></span></p>
+        <p><strong>学号：</strong><span id="detailId"></span></p>
+      </div>
+      <div class="detail-row">
+        <p><strong>当前年级：</strong><span id="detailGrade"></span></p>
+        <p><strong>当前学科方向：</strong><span id="detailMajor"></span></p>
+      </div>
+      <div class="detail-row">
+        <p><strong>当前班级：</strong><span id="detailClass"></span></p>
+      </div>
+      <div class="detail-row">
+        <p><strong>当前荣誉：</strong><span id="detailHonor"></span></p>
+        <p><strong>当前状态：</strong><span id="detailStatus"></span></p>
+      </div>
+
+      <h2 style="margin-top: 8px; color: #1f2a3a;">学生基本信息</h2>
+      <form id="studentDetailForm" class="student-detail-form" autocomplete="off">
+        <div class="form-row">
+          <label for="studentName">姓名</label>
+          <input id="studentName" name="studentName" type="text" disabled>
+        </div>
+        <div class="form-row">
+          <label for="studentId">学号</label>
+          <input id="studentId" name="studentId" type="text" disabled>
+        </div>
+        <div class="form-row">
+          <label for="studentGrade">年级</label>
+          <select id="studentGrade" name="studentGrade" disabled>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="studentClass">班级</label>
+          <input id="studentClass" name="studentClass" type="text" disabled>
+        </div>
+        <div class="form-row">
+          <label for="studentMajor">学科方向</label>
+          <input id="studentMajor" name="studentMajor" type="text" disabled>
+        </div>
+        <div class="form-row">
+          <label for="studentStatus">状态</label>
+          <select id="studentStatus" name="studentStatus" disabled>
+            <option value="在校">在校</option>
+            <option value="离校">离校</option>
+          </select>
+        </div>
+      </form>
+
+      <section id="honorSection" class="conversation-section">
+        <h2>荣誉记录表</h2>
+        <div class="conversation-actions">
+          <button id="addHonorRow" type="button" class="btn-primary">添加荣誉</button>
+        </div>
+        <table class="conversation-table" id="honorTable">
+          <thead>
+            <tr>
+              <th style="width:140px;">时间</th>
+              <th>荣誉内容</th>
+              <th style="width:90px;">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 动态生成荣誉记录行 -->
+          </tbody>
+        </table>
+        <p style="margin:0; color:#5b6b7d; font-size:0.95rem;">预设三行荣誉，可添加或删除行，保存后其它有权限教师会收到提醒。</p>
+      </section>
+
+      <div id="detailMessage" class="message info" hidden></div>
+      <section id="conversationSection" class="conversation-section">
+        <h2>谈话记录表</h2>
+        <div class="conversation-actions">
+          <button id="addConversationRow" type="button" class="btn-primary">添加记录</button>
+        </div>
+        <table class="conversation-table" id="conversationTable">
+          <thead>
+            <tr>
+              <th style="width:120px;">日期</th>
+              <th style="width:140px;">谈话对象</th>
+              <th>谈话内容</th>
+              <th style="width:90px;">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 动态生成谈话记录行 -->
+          </tbody>
+        </table>
+        <p style="margin:0; color:#5b6b7d; font-size:0.95rem;">预设三行记录，可添加或删除行，保存后其它有权限教师会收到提醒。</p>
+      </section>
+      <section id="radarSection" class="radar-section">
+        <h2>五维雷达评分</h2>
+        <div class="radar-grid">
+          <div class="radar-chart-wrapper">
+            <canvas id="radarChart" width="360" height="360"></canvas>
+          </div>
+          <div class="radar-controls">
+            <div class="radar-control-row">
+              <label for="radarInput0">学习能力 <span id="radarValue0" class="radar-score-value">3.0</span></label>
+              <input id="radarInput0" type="range" min="1" max="5" step="0.5" disabled>
+            </div>
+            <div class="radar-control-row">
+              <label for="radarInput1">创业思维 <span id="radarValue1" class="radar-score-value">3.0</span></label>
+              <input id="radarInput1" type="range" min="1" max="5" step="0.5" disabled>
+            </div>
+            <div class="radar-control-row">
+              <label for="radarInput2">人文思维 <span id="radarValue2" class="radar-score-value">3.0</span></label>
+              <input id="radarInput2" type="range" min="1" max="5" step="0.5" disabled>
+            </div>
+            <div class="radar-control-row">
+              <label for="radarInput3">服务思维 <span id="radarValue3" class="radar-score-value">3.0</span></label>
+              <input id="radarInput3" type="range" min="1" max="5" step="0.5" disabled>
+            </div>
+            <div class="radar-control-row">
+              <label for="radarInput4">语言能力 <span id="radarValue4" class="radar-score-value">3.0</span></label>
+              <input id="radarInput4" type="range" min="1" max="5" step="0.5" disabled>
+            </div>
+          </div>
+        </div>
+        <p style="margin:0; color:#5b6b7d; font-size:0.95rem;">编辑模式下可调整评分，保存后会更新雷达图并记录当前评价。</p>
+      </section>
+      <section id="historySection" class="history-section">
+        <h2>保存历史记录</h2>
+        <ul id="historyList" class="history-list"></ul>
+      </section>
+    </div>
+  </div>
+
+  <script src="./student-detail.js" defer></script>
+</body>
+</html>

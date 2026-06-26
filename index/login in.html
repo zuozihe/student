@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杭州湾双语学校高端学生系统登录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景装饰圆形 */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -100px;
+            left: -100px;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            width: 250px;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            bottom: -50px;
+            right: -50px;
+            z-index: 0;
+        }
+        
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 60px 50px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 420px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+            margin-bottom: 40px;
+            letter-spacing: 0.3px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e8e8e8;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+        
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>杭州湾双语学校</h1>
+        <div class="subtitle">高端学生系统登录</div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">账号：</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">密码：</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">登录</button>
+        </form>
+        <p style="margin-top: 16px; color: #555; font-size: 0.95rem; line-height: 1.5;">预设账号：<strong>admin / 123456</strong>（管理员），<strong>math_teacher / 123456</strong>（数学），<strong>cs_teacher / 123456</strong>（计算机），<strong>chem_teacher / 123456</strong>（化学），<strong>phys_teacher / 123456</strong>（物理），<strong>bio_teacher / 123456</strong>（生物），<strong>class_7_3 / 123456</strong>（7年级3班班主任），<strong>class_9_2 / 123456</strong>（9年级2班班主任）。</p>
+    </div>
+    
+    <script>
+        const presetAccounts = [
+            { username: 'admin', password: '123456', displayName: '管理员', subject: 'admin' },
+            { username: 'math_teacher', password: '123456', displayName: '数学老师', subject: '数学' },
+            { username: 'cs_teacher', password: '123456', displayName: '计算机老师', subject: '计算机' },
+            { username: 'chem_teacher', password: '123456', displayName: '化学老师', subject: '化学' },
+            { username: 'phys_teacher', password: '123456', displayName: '物理老师', subject: '物理' },
+            { username: 'bio_teacher', password: '123456', displayName: '生物老师', subject: '生物' },
+            { username: 'class_7_3', password: '123456', displayName: '7年级3班班主任', subject: '班级:7年级3班' },
+            { username: 'class_9_2', password: '123456', displayName: '9年级2班班主任', subject: '班级:9年级2班' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('username').value = presetAccounts[0].username;
+            document.getElementById('password').value = presetAccounts[0].password;
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const matchedAccount = presetAccounts.find(account => account.username === username && account.password === password);
+
+            if (matchedAccount) {
+                localStorage.setItem('userAccount', matchedAccount.username);
+                localStorage.setItem('userSubject', matchedAccount.subject);
+                localStorage.setItem('userDisplayName', matchedAccount.displayName);
+                console.log('已登录账号:', matchedAccount.username, '学科:', matchedAccount.subject);
+                alert('登录成功！当前账号：' + matchedAccount.displayName + '。');
+                window.location.href = 'index.html';
+            } else {
+                alert('登录失败：账号或密码不正确，请使用预设账号登录。');
+            }
+        });
+    </script>
+</body>
+</html>
